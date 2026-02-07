@@ -647,20 +647,82 @@
     /* Homepage product image marquee */
     .product-marquee {
       overflow: hidden;
-      padding: 0;
+      padding: 60px 0;
     }
     .product-marquee__track {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      animation: marquee-right 35s linear infinite;
+      gap: 20px;
+      animation: marquee-right 50s linear infinite;
     }
-    .product-marquee__img {
-      height: 350px;
-      width: auto;
+    .product-marquee__card {
       flex-shrink: 0;
-      display: block;
-      border-radius: 0;
+      width: 500px;
+      height: 600px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-marquee__card-media {
+      flex: 1;
+      position: relative;
+      background: #0A0A0A;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-marquee__card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.3);
+    }
+    .product-marquee__card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      background: var(--accent);
+      color: #FFFFFF;
+      z-index: 2;
+    }
+    .product-marquee__card-info {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .product-marquee__card-type {
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .product-marquee__card-title {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .product-marquee__card-price {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+    @media (max-width: 749px) {
+      .product-marquee__card {
+        width: 85vw;
+        height: 500px;
+      }
     }
 
     /* ═══════════════════════════════════════════════════════
@@ -1534,10 +1596,29 @@
       </div>
     </div>
 
-    <!-- Product Image Marquee -->
+    <!-- Product Card Marquee -->
     <section class="product-marquee">
       <div class="product-marquee__track">
-        <img src="1.png" alt="" class="product-marquee__img"><img src="blackdilated1111.png" alt="" class="product-marquee__img"><img src="5.png" alt="" class="product-marquee__img"><img src="dilated1111.png" alt="" class="product-marquee__img"><img src="3.png" alt="" class="product-marquee__img"><img src="1.png" alt="" class="product-marquee__img"><img src="blackdilated1111.png" alt="" class="product-marquee__img"><img src="5.png" alt="" class="product-marquee__img"><img src="dilated1111.png" alt="" class="product-marquee__img"><img src="3.png" alt="" class="product-marquee__img"><img src="1.png" alt="" class="product-marquee__img"><img src="blackdilated1111.png" alt="" class="product-marquee__img"><img src="5.png" alt="" class="product-marquee__img"><img src="dilated1111.png" alt="" class="product-marquee__img"><img src="3.png" alt="" class="product-marquee__img"><img src="1.png" alt="" class="product-marquee__img"><img src="blackdilated1111.png" alt="" class="product-marquee__img"><img src="5.png" alt="" class="product-marquee__img"><img src="dilated1111.png" alt="" class="product-marquee__img"><img src="3.png" alt="" class="product-marquee__img">
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="1.png" alt="R2P Zip/Up"><span class="product-marquee__card-badge">NEW</span></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Outerwear</span><span class="product-marquee__card-title">R2P Zip/Up</span><span class="product-marquee__card-price">$70</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="blackdilated1111.png" alt="Dilated Hoodie"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Hoodies</span><span class="product-marquee__card-title">Dilated Hoodie</span><span class="product-marquee__card-price">$90</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="5.png" alt="R2P Zip/Up"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Outerwear</span><span class="product-marquee__card-title">R2P Zip/Up</span><span class="product-marquee__card-price">$70</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="dilated1111.png" alt="Dilated Hoodie"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Hoodies</span><span class="product-marquee__card-title">Dilated Hoodie</span><span class="product-marquee__card-price">$90</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="3.png" alt="R2P Zip/Up"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Outerwear</span><span class="product-marquee__card-title">R2P Zip/Up</span><span class="product-marquee__card-price">$70</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="1.png" alt="R2P Zip/Up"><span class="product-marquee__card-badge">NEW</span></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Outerwear</span><span class="product-marquee__card-title">R2P Zip/Up</span><span class="product-marquee__card-price">$70</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="blackdilated1111.png" alt="Dilated Hoodie"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Hoodies</span><span class="product-marquee__card-title">Dilated Hoodie</span><span class="product-marquee__card-price">$90</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="5.png" alt="R2P Zip/Up"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Outerwear</span><span class="product-marquee__card-title">R2P Zip/Up</span><span class="product-marquee__card-price">$70</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="dilated1111.png" alt="Dilated Hoodie"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Hoodies</span><span class="product-marquee__card-title">Dilated Hoodie</span><span class="product-marquee__card-price">$90</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="3.png" alt="R2P Zip/Up"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Outerwear</span><span class="product-marquee__card-title">R2P Zip/Up</span><span class="product-marquee__card-price">$70</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="1.png" alt="R2P Zip/Up"><span class="product-marquee__card-badge">NEW</span></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Outerwear</span><span class="product-marquee__card-title">R2P Zip/Up</span><span class="product-marquee__card-price">$70</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="blackdilated1111.png" alt="Dilated Hoodie"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Hoodies</span><span class="product-marquee__card-title">Dilated Hoodie</span><span class="product-marquee__card-price">$90</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="5.png" alt="R2P Zip/Up"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Outerwear</span><span class="product-marquee__card-title">R2P Zip/Up</span><span class="product-marquee__card-price">$70</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="dilated1111.png" alt="Dilated Hoodie"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Hoodies</span><span class="product-marquee__card-title">Dilated Hoodie</span><span class="product-marquee__card-price">$90</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="3.png" alt="R2P Zip/Up"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Outerwear</span><span class="product-marquee__card-title">R2P Zip/Up</span><span class="product-marquee__card-price">$70</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="1.png" alt="R2P Zip/Up"><span class="product-marquee__card-badge">NEW</span></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Outerwear</span><span class="product-marquee__card-title">R2P Zip/Up</span><span class="product-marquee__card-price">$70</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="blackdilated1111.png" alt="Dilated Hoodie"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Hoodies</span><span class="product-marquee__card-title">Dilated Hoodie</span><span class="product-marquee__card-price">$90</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="5.png" alt="R2P Zip/Up"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Outerwear</span><span class="product-marquee__card-title">R2P Zip/Up</span><span class="product-marquee__card-price">$70</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="dilated1111.png" alt="Dilated Hoodie"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Hoodies</span><span class="product-marquee__card-title">Dilated Hoodie</span><span class="product-marquee__card-price">$90</span></div></div>
+        <div class="product-marquee__card"><div class="product-marquee__card-media"><img src="3.png" alt="R2P Zip/Up"></div><div class="product-marquee__card-info"><span class="product-marquee__card-type">Outerwear</span><span class="product-marquee__card-title">R2P Zip/Up</span><span class="product-marquee__card-price">$70</span></div></div>
       </div>
     </section>
 
