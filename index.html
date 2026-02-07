@@ -439,6 +439,7 @@
        ═══════════════════════════════════════════════════════ */
     .ticker {
       padding: 0;
+      height: 44px;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       overflow: hidden;
@@ -446,13 +447,16 @@
     .ticker__track {
       display: flex;
       align-items: center;
+      height: 44px;
       animation: marquee 30s linear infinite;
     }
     .ticker__img {
-      height: 90px;
+      height: 120px;
       width: auto;
       flex-shrink: 0;
       display: block;
+      object-fit: cover;
+      object-position: center;
     }
 
     /* ═══════════════════════════════════════════════════════
