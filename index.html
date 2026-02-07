@@ -914,6 +914,13 @@
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
+      align-items: center;
+    }
+    .pdp__sep {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--r2p-muted, #666);
+      user-select: none;
     }
     .pdp__size {
       width: 48px;
@@ -1881,7 +1888,7 @@
 
       const sizeBtns = product.sizes.map(s =>
         `<button class="pdp__size" data-size="${s}">${s}</button>`
-      ).join('');
+      ).join('<span class="pdp__sep"> — </span>');
 
       // Color selector HTML
       const COLOR_STYLES = {
@@ -1900,7 +1907,7 @@
               const cs = COLOR_STYLES[c] || { bg: 'var(--accent)', text: '#FFFFFF' };
               const activeStyle = i === 0 ? `background:${cs.bg};color:${cs.text};border-color:${cs.bg};` : '';
               return `<button class="pdp__color-btn pdp__size${i === 0 ? ' active' : ''}" data-color="${c}" data-bg="${cs.bg}" data-text="${cs.text}" style="width:auto;padding:0 16px;${activeStyle}">${c}</button>`;
-            }).join('')}
+            }).join('<span class="pdp__sep"> — </span>')}
           </div>
         </div>
       ` : '';
