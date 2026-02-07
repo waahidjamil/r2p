@@ -670,18 +670,15 @@
       flex-direction: column;
     }
     .product-marquee__card-media {
-      height: 500px;
+      flex: 1;
       position: relative;
       background: #0A0A0A;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     .product-marquee__card-media img {
-      max-width: 75%;
-      max-height: 80%;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .product-marquee__card-badge {
       position: absolute;
@@ -725,10 +722,7 @@
     @media (max-width: 749px) {
       .product-marquee__card {
         width: 85vw;
-        height: auto;
-      }
-      .product-marquee__card-media {
-        height: 380px;
+        height: 500px;
       }
     }
 
