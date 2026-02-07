@@ -545,7 +545,7 @@
     .card__media {
       position: relative;
       aspect-ratio: 3 / 4;
-      background: var(--bg);
+      background: #0A0A0A;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -807,11 +807,12 @@
     }
     .pdp__image-main {
       aspect-ratio: 3 / 4;
-      background: var(--surface);
+      background: #0A0A0A;
       border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
     .pdp__image-main span {
       font-family: var(--font-impact);
@@ -1663,12 +1664,12 @@
        PRODUCT DATA
        ═══════════════════════════════════════════════════════ */
     const PRODUCTS = [
-      { id: 1, name: 'R2P Zip/Up', price: 70, category: 'tops', type: 'Outerwear', soldOut: true, sizes: ['S','M','L','XL'], desc: 'Heavyweight zip-up hoodie with embroidered R2P logo. Oversized fit, premium fleece lined.' },
-      { id: 2, name: 'Road Tee', price: 45, category: 'tops', type: 'Tees', soldOut: false, sizes: ['S','M','L','XL','XXL'], desc: 'Heavyweight cotton tee with screen-printed road graphic. Boxy fit, ribbed collar.' },
-      { id: 3, name: 'Locked In Hoodie', price: 85, category: 'tops', type: 'Hoodies', soldOut: false, sizes: ['S','M','L','XL'], desc: 'Premium pullover hoodie with puff-print "Locked In" across the chest. 400gsm French terry.' },
-      { id: 4, name: 'P$ Track Pants', price: 65, category: 'bottoms', type: 'Bottoms', soldOut: false, sizes: ['S','M','L','XL'], desc: 'Relaxed track pants with side stripe detail and embroidered P$ logo. Elastic waist with drawcord.' },
-      { id: 5, name: 'R2P Cap', price: 35, category: 'accessories', type: 'Accessories', soldOut: false, sizes: ['One Size'], desc: 'Structured 6-panel cap with R2P embroidery. Adjustable strap closure.' },
-      { id: 6, name: 'Studio Crewneck', price: 75, category: 'tops', type: 'Crewnecks', soldOut: false, sizes: ['S','M','L','XL'], desc: 'Relaxed crewneck sweatshirt with "Studio" back print. 380gsm organic cotton blend.' },
+      { id: 1, name: 'R2P Zip/Up', price: 70, category: 'tops', type: 'Outerwear', soldOut: true, sizes: ['S','M','L','XL'], image: '5.png', desc: 'Heavyweight zip-up hoodie with embroidered R2P logo. Oversized fit, premium fleece lined.' },
+      { id: 2, name: 'Road Tee', price: 45, category: 'tops', type: 'Tees', soldOut: false, sizes: ['S','M','L','XL','XXL'], image: '1.png', desc: 'Heavyweight cotton tee with screen-printed road graphic. Boxy fit, ribbed collar.' },
+      { id: 3, name: 'Locked In Hoodie', price: 85, category: 'tops', type: 'Hoodies', soldOut: false, sizes: ['S','M','L','XL'], image: '3.png', desc: 'Premium pullover hoodie with puff-print "Locked In" across the chest. 400gsm French terry.' },
+      { id: 4, name: 'P$ Track Pants', price: 65, category: 'bottoms', type: 'Bottoms', soldOut: false, sizes: ['S','M','L','XL'], image: '5.png', desc: 'Relaxed track pants with side stripe detail and embroidered P$ logo. Elastic waist with drawcord.' },
+      { id: 5, name: 'R2P Cap', price: 35, category: 'accessories', type: 'Accessories', soldOut: false, sizes: ['One Size'], image: '1.png', desc: 'Structured 6-panel cap with R2P embroidery. Adjustable strap closure.' },
+      { id: 6, name: 'Studio Crewneck', price: 75, category: 'tops', type: 'Crewnecks', soldOut: false, sizes: ['S','M','L','XL'], image: '3.png', desc: 'Relaxed crewneck sweatshirt with "Studio" back print. 380gsm organic cotton blend.' },
     ];
 
     /* ═══════════════════════════════════════════════════════
@@ -1768,10 +1769,14 @@
         ? `<button class="card__quick-add-btn" disabled>Sold Out</button>`
         : `<button class="card__quick-add-btn" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.sizes[1] || product.sizes[0]}')">Quick Add</button>`;
 
+      const imgHtml = product.image
+        ? `<img src="${product.image}" alt="${product.name}" style="width:100%;height:100%;object-fit:contain;">`
+        : `<span class="card__media-placeholder">R2P</span>`;
+
       return `
         <div class="card reveal" onclick="navigateTo('product', ${product.id})">
           <div class="card__media">
-            <span class="card__media-placeholder">R2P</span>
+            ${imgHtml}
             ${badge}
             <div class="card__quick-add">${quickBtn}</div>
           </div>
@@ -1871,7 +1876,7 @@
 
       document.getElementById('pdp-content').innerHTML = `
         <div class="pdp__gallery reveal">
-          <div class="pdp__image-main"><span>R2P</span></div>
+          <div class="pdp__image-main">${product.image ? `<img src="${product.image}" alt="${product.name}" style="width:100%;height:100%;object-fit:contain;">` : '<span>R2P</span>'}</div>
           <div class="pdp__thumbs">
             <div class="pdp__thumb active"><span>Front</span></div>
             <div class="pdp__thumb"><span>Back</span></div>
