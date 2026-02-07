@@ -721,7 +721,37 @@
        COLLECTION PAGE
        ═══════════════════════════════════════════════════════ */
     .collection-page {
-      padding: 140px 0 80px;
+      padding: 0 0 80px;
+    }
+    .collection-page__banner {
+      position: relative;
+      padding: 140px 0 60px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .collection-page__banner-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .collection-page__banner-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        180deg,
+        rgba(5, 5, 5, 0.65) 0%,
+        rgba(5, 5, 5, 0.8) 100%
+      );
+      z-index: 1;
+    }
+    .collection-page__banner .page-width {
+      position: relative;
+      z-index: 2;
     }
     .collection-page__title {
       font-family: var(--font-display);
@@ -1467,17 +1497,23 @@
   <!-- COLLECTION -->
   <main class="page" id="page-collection">
     <section class="collection-page">
+      <div class="collection-page__banner">
+        <img src="r2pla.gif" alt="" class="collection-page__banner-img" aria-hidden="true">
+        <div class="collection-page__banner-overlay"></div>
+        <div class="page-width">
+          <div class="reveal">
+            <p class="section-label">Collection</p>
+            <h1 class="collection-page__title">All Pieces</h1>
+          </div>
+          <div class="filter-tabs reveal" id="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All</button>
+            <button class="filter-tab" data-filter="tops">Tops</button>
+            <button class="filter-tab" data-filter="bottoms">Bottoms</button>
+            <button class="filter-tab" data-filter="accessories">Accessories</button>
+          </div>
+        </div>
+      </div>
       <div class="page-width">
-        <div class="reveal">
-          <p class="section-label">Collection</p>
-          <h1 class="collection-page__title">All Pieces</h1>
-        </div>
-        <div class="filter-tabs reveal" id="filter-tabs">
-          <button class="filter-tab active" data-filter="all">All</button>
-          <button class="filter-tab" data-filter="tops">Tops</button>
-          <button class="filter-tab" data-filter="bottoms">Bottoms</button>
-          <button class="filter-tab" data-filter="accessories">Accessories</button>
-        </div>
         <div class="product-grid product-grid--4" id="collection-grid"></div>
       </div>
     </section>
