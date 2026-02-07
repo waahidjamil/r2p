@@ -1873,12 +1873,23 @@
       ).join('');
 
       // Color selector HTML
+      const COLOR_STYLES = {
+        'Grey': { bg: '#888888', text: '#000000' },
+        'Pink': { bg: '#FF69B4', text: '#FFFFFF' },
+        'Blue': { bg: '#00BFFF', text: '#FFFFFF' },
+        'Black': { bg: '#333333', text: '#FFFFFF' },
+        'Acid Wash': { bg: '#666677', text: '#FFFFFF' },
+      };
       const colorNames = product.colors ? Object.keys(product.colors) : [];
       const colorHtml = colorNames.length > 0 ? `
         <div>
           <p class="pdp__sizes-label">Color</p>
           <div class="pdp__sizes" id="pdp-colors">
-            ${colorNames.map((c, i) => `<button class="pdp__size${i === 0 ? ' active' : ''}" data-color="${c}" style="width:auto;padding:0 16px;">${c}</button>`).join('')}
+            ${colorNames.map((c, i) => {
+              const cs = COLOR_STYLES[c] || { bg: 'var(--accent)', text: '#FFFFFF' };
+              const activeStyle = i === 0 ? `background:${cs.bg};color:${cs.text};border-color:${cs.bg};` : '';
+              return `<button class="pdp__color-btn pdp__size${i === 0 ? ' active' : ''}" data-color="${c}" data-bg="${cs.bg}" data-text="${cs.text}" style="width:auto;padding:0 16px;${activeStyle}">${c}</button>`;
+            }).join('')}
           </div>
         </div>
       ` : '';
@@ -1932,11 +1943,36 @@
       let selectedColor = colorNames[0] || null;
       const colorsEl = document.getElementById('pdp-colors');
       if (colorsEl) {
+        // Hover styles
+        colorsEl.querySelectorAll('.pdp__color-btn').forEach(btn => {
+          btn.addEventListener('mouseenter', () => {
+            if (!btn.classList.contains('active')) {
+              btn.style.background = btn.dataset.bg;
+              btn.style.color = btn.dataset.text;
+              btn.style.borderColor = btn.dataset.bg;
+            }
+          });
+          btn.addEventListener('mouseleave', () => {
+            if (!btn.classList.contains('active')) {
+              btn.style.background = 'transparent';
+              btn.style.color = 'var(--text)';
+              btn.style.borderColor = 'var(--border)';
+            }
+          });
+        });
         colorsEl.addEventListener('click', e => {
           const btn = e.target.closest('.pdp__size');
           if (!btn) return;
-          colorsEl.querySelectorAll('.pdp__size').forEach(b => b.classList.remove('active'));
+          colorsEl.querySelectorAll('.pdp__size').forEach(b => {
+            b.classList.remove('active');
+            b.style.background = 'transparent';
+            b.style.color = 'var(--text)';
+            b.style.borderColor = 'var(--border)';
+          });
           btn.classList.add('active');
+          btn.style.background = btn.dataset.bg;
+          btn.style.color = btn.dataset.text;
+          btn.style.borderColor = btn.dataset.bg;
           selectedColor = btn.dataset.color;
           const imgs = product.colors[selectedColor];
           if (imgs) {
