@@ -2211,6 +2211,7 @@
       let dragOffset = 0;
       let resumeTimer = null;
       let autoScrollId = null;
+      let currentSpeed = 0.8;
       const speed = 0.8; // px per frame
 
       // Total width of half the track (since content is duplicated 4x, half = 2 sets)
@@ -2220,7 +2221,8 @@
 
       function autoScroll() {
         if (!isDragging && !paused) {
-          offset -= speed;
+          if (currentSpeed < speed) currentSpeed = Math.min(currentSpeed + 0.02, speed);
+          offset -= currentSpeed;
           const half = getHalfWidth();
           if (Math.abs(offset) >= half) offset += half;
           track.style.transform = 'translateX(' + offset + 'px)';
@@ -2260,7 +2262,7 @@
         paused = true;
         container.classList.remove('is-dragging');
         if (resumeTimer) clearTimeout(resumeTimer);
-        resumeTimer = setTimeout(() => { paused = false; }, 2000);
+        resumeTimer = setTimeout(() => { paused = false; currentSpeed = 0; }, 500);
       }
 
       container.addEventListener('mousedown', onStart);
