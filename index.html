@@ -1663,8 +1663,7 @@
        PRODUCT DATA
        ═══════════════════════════════════════════════════════ */
     const PRODUCTS = [
-      { id: 7, name: 'Dilated Hoodie — Black', price: 90, category: 'tops', type: 'Hoodies', soldOut: false, tag: 'NEW', sizes: ['S','M','L','XL'], image: 'blackdilated1111.png', images: ['blackdilated1111.png','blackdilated2222.png'], desc: 'Premium heavyweight hoodie with dilated graphic print. Oversized fit, 400gsm French terry, ribbed cuffs and hem.' },
-      { id: 8, name: 'Dilated Hoodie — Acid Wash', price: 95, category: 'tops', type: 'Hoodies', soldOut: false, tag: 'LIMITED', sizes: ['S','M','L','XL'], image: 'dilated1111.png', images: ['dilated1111.png','dilated2222.png'], desc: 'Acid wash finish with dilated graphic print. Each piece is unique. Oversized fit, 400gsm French terry.' },
+      { id: 7, name: 'Dilated Hoodie', price: 90, category: 'tops', type: 'Hoodies', soldOut: false, tag: 'NEW', sizes: ['S','M','L','XL'], image: 'blackdilated1111.png', images: ['blackdilated1111.png','blackdilated2222.png'], colors: { 'Black': ['blackdilated1111.png','blackdilated2222.png'], 'Acid Wash': ['dilated1111.png','dilated2222.png'] }, desc: 'Premium heavyweight hoodie with dilated graphic print. Oversized fit, 400gsm French terry, ribbed cuffs and hem.' },
       { id: 1, name: 'R2P Zip/Up', price: 70, category: 'tops', type: 'Outerwear', soldOut: true, sizes: ['S','M','L','XL'], image: '5.png', images: ['5.png'], desc: 'Heavyweight zip-up hoodie with embroidered R2P logo. Oversized fit, premium fleece lined.' },
       { id: 2, name: 'Road Tee', price: 45, category: 'tops', type: 'Tees', soldOut: false, sizes: ['S','M','L','XL','XXL'], image: '1.png', images: ['1.png'], desc: 'Heavyweight cotton tee with screen-printed road graphic. Boxy fit, ribbed collar.' },
       { id: 3, name: 'Locked In Hoodie', price: 85, category: 'tops', type: 'Hoodies', soldOut: false, sizes: ['S','M','L','XL'], image: '3.png', images: ['3.png'], desc: 'Premium pullover hoodie with puff-print "Locked In" across the chest. 400gsm French terry.' },
@@ -1875,7 +1874,18 @@
         `<button class="pdp__size" data-size="${s}">${s}</button>`
       ).join('');
 
-      const galleryImages = product.images || (product.image ? [product.image] : []);
+      // Color selector HTML
+      const colorNames = product.colors ? Object.keys(product.colors) : [];
+      const colorHtml = colorNames.length > 0 ? `
+        <div>
+          <p class="pdp__sizes-label">Color</p>
+          <div class="pdp__sizes" id="pdp-colors">
+            ${colorNames.map((c, i) => `<button class="pdp__size${i === 0 ? ' active' : ''}" data-color="${c}" style="width:auto;padding:0 16px;">${c}</button>`).join('')}
+          </div>
+        </div>
+      ` : '';
+
+      const galleryImages = product.colors ? product.colors[colorNames[0]] : (product.images || (product.image ? [product.image] : []));
       const mainImg = galleryImages[0];
       const thumbLabels = ['Front','Back','Detail'];
       const thumbsHtml = galleryImages.map((img, i) =>
@@ -1885,7 +1895,7 @@
       document.getElementById('pdp-content').innerHTML = `
         <div class="pdp__gallery reveal">
           <div class="pdp__image-main" id="pdp-main-img">${mainImg ? `<img src="${mainImg}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;transform:scale(1.3);">` : '<span>R2P</span>'}</div>
-          <div class="pdp__thumbs">
+          <div class="pdp__thumbs" id="pdp-thumbs">
             ${thumbsHtml}
           </div>
         </div>
@@ -1894,6 +1904,7 @@
           <h1 class="pdp__title">${product.name}</h1>
           <span class="pdp__price">$${product.price}</span>
           <p class="pdp__desc">${product.desc}</p>
+          ${colorHtml}
           <div>
             <p class="pdp__sizes-label">Size</p>
             <div class="pdp__sizes" id="pdp-sizes">${sizeBtns}</div>
@@ -1919,12 +1930,33 @@
         </div>
       `;
 
+      // Color selection — swap gallery images
+      let selectedColor = colorNames[0] || null;
+      const colorsEl = document.getElementById('pdp-colors');
+      if (colorsEl) {
+        colorsEl.addEventListener('click', e => {
+          const btn = e.target.closest('.pdp__size');
+          if (!btn) return;
+          colorsEl.querySelectorAll('.pdp__size').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedColor = btn.dataset.color;
+          const imgs = product.colors[selectedColor];
+          if (imgs) {
+            document.getElementById('pdp-main-img').innerHTML = `<img src="${imgs[0]}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;transform:scale(1.3);">`;
+            document.getElementById('pdp-thumbs').innerHTML = imgs.map((img, i) =>
+              `<div class="pdp__thumb${i === 0 ? ' active' : ''}" data-img="${img}"><span>${thumbLabels[i] || 'View ' + (i+1)}</span></div>`
+            ).join('');
+            bindThumbs();
+          }
+        });
+      }
+
       // Size selection
       let selectedSize = null;
       document.getElementById('pdp-sizes').addEventListener('click', e => {
         const btn = e.target.closest('.pdp__size');
         if (!btn) return;
-        document.querySelectorAll('.pdp__size').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#pdp-sizes .pdp__size').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         selectedSize = btn.dataset.size;
         document.getElementById('size-error').textContent = '';
@@ -1936,20 +1968,31 @@
           document.getElementById('size-error').textContent = 'Please select a size';
           return;
         }
-        addToCart(product.id, selectedSize);
+        const cartName = selectedColor ? `${product.name} — ${selectedColor}` : product.name;
+        const existing = cart.find(item => item.id === product.id && item.size === selectedSize && item.name === cartName);
+        if (existing) {
+          existing.qty++;
+        } else {
+          cart.push({ id: product.id, name: cartName, price: product.price, size: selectedSize, qty: 1 });
+        }
+        renderCart();
+        openCart();
       });
 
       // Thumb selection — swap main image
-      document.querySelectorAll('.pdp__thumb').forEach(thumb => {
-        thumb.addEventListener('click', () => {
-          document.querySelectorAll('.pdp__thumb').forEach(t => t.classList.remove('active'));
-          thumb.classList.add('active');
-          const img = thumb.dataset.img;
-          if (img) {
-            document.getElementById('pdp-main-img').innerHTML = `<img src="${img}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;transform:scale(1.3);">`;
-          }
+      function bindThumbs() {
+        document.querySelectorAll('.pdp__thumb').forEach(thumb => {
+          thumb.addEventListener('click', () => {
+            document.querySelectorAll('.pdp__thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+            const img = thumb.dataset.img;
+            if (img) {
+              document.getElementById('pdp-main-img').innerHTML = `<img src="${img}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;transform:scale(1.3);">`;
+            }
+          });
         });
-      });
+      }
+      bindThumbs();
 
       setTimeout(initScrollReveal, 50);
     }
