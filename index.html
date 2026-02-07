@@ -96,11 +96,11 @@
       align-items: center;
       position: relative;
       z-index: 101;
-      animation: announce-pulse 3s ease-in-out infinite;
+      animation: announce-flash 4s step-end infinite;
     }
-    @keyframes announce-pulse {
-      0%, 85%, 100% { background: #00875A; color: rgba(255,255,255,0.9); }
-      92% { background: #00A86B; color: #FFFFFF; }
+    @keyframes announce-flash {
+      0%, 50% { background: #00875A; color: #FFFFFF; }
+      50.01%, 100% { background: #FFFFFF; color: #00875A; }
     }
     .announce__track {
       display: flex;
