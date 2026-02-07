@@ -686,11 +686,15 @@
     .product-marquee {
       overflow: hidden;
       padding: 60px 0;
+      cursor: grab;
+    }
+    .product-marquee.is-dragging {
+      cursor: grabbing;
     }
     .product-marquee__track {
       display: flex;
       gap: 20px;
-      animation: marquee-right 50s linear infinite;
+      will-change: transform;
     }
     .product-marquee__card {
       flex-shrink: 0;
@@ -2192,6 +2196,83 @@
       }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
       els.forEach(el => observer.observe(el));
     }
+
+    /* ═══════════════════════════════════════════════════════
+       PRODUCT MARQUEE — DRAG + AUTO-SCROLL
+       ═══════════════════════════════════════════════════════ */
+    (function() {
+      const container = document.querySelector('.product-marquee');
+      const track = document.querySelector('.product-marquee__track');
+      if (!container || !track) return;
+
+      let offset = 0;
+      let isDragging = false;
+      let startX = 0;
+      let dragOffset = 0;
+      let resumeTimer = null;
+      let autoScrollId = null;
+      const speed = 0.8; // px per frame
+
+      // Total width of half the track (since content is duplicated 4x, half = 2 sets)
+      function getHalfWidth() {
+        return track.scrollWidth / 2;
+      }
+
+      function autoScroll() {
+        if (!isDragging && !paused) {
+          offset -= speed;
+          const half = getHalfWidth();
+          if (Math.abs(offset) >= half) offset += half;
+          track.style.transform = 'translateX(' + offset + 'px)';
+        }
+        autoScrollId = requestAnimationFrame(autoScroll);
+      }
+
+      autoScrollId = requestAnimationFrame(autoScroll);
+
+      function getX(e) {
+        return e.touches ? e.touches[0].clientX : e.clientX;
+      }
+
+      function onStart(e) {
+        isDragging = true;
+        startX = getX(e);
+        dragOffset = offset;
+        container.classList.add('is-dragging');
+        if (resumeTimer) clearTimeout(resumeTimer);
+      }
+
+      function onMove(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        const dx = getX(e) - startX;
+        offset = dragOffset + dx;
+        const half = getHalfWidth();
+        if (Math.abs(offset) >= half) offset += (offset < 0 ? half : -half);
+        track.style.transform = 'translateX(' + offset + 'px)';
+      }
+
+      let paused = false;
+
+      function onEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        paused = true;
+        container.classList.remove('is-dragging');
+        if (resumeTimer) clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(() => { paused = false; }, 2000);
+      }
+
+      container.addEventListener('mousedown', onStart);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onEnd);
+      container.addEventListener('touchstart', onStart, { passive: true });
+      container.addEventListener('touchmove', onMove, { passive: false });
+      container.addEventListener('touchend', onEnd);
+
+      // Prevent image drag
+      container.addEventListener('dragstart', e => e.preventDefault());
+    })();
 
     /* ═══════════════════════════════════════════════════════
        INIT
