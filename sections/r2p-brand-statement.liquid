@@ -1,0 +1,98 @@
+<!-- R2P Brand Statement -->
+<style>
+  .r2p-brand-statement {
+    padding: 100px 0;
+    background: var(--r2p-bg);
+    border-top: 1px solid var(--r2p-border);
+    border-bottom: 1px solid var(--r2p-border);
+  }
+
+  .r2p-brand-statement__inner {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .r2p-brand-statement__label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--r2p-accent);
+    margin-bottom: 24px;
+  }
+
+  .r2p-brand-statement__quote {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 5vw, 3.25rem);
+    font-style: italic;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--r2p-text);
+    margin: 0;
+  }
+
+  .r2p-brand-statement__author {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--r2p-muted);
+    margin-top: 32px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .r2p-brand-statement {
+      padding: 140px 0;
+    }
+  }
+</style>
+
+<section class="r2p-brand-statement" aria-label="Brand statement">
+  <div class="r2p-page-width">
+    <div class="r2p-brand-statement__inner r2p-reveal">
+      {%- if section.settings.label != blank -%}
+        <p class="r2p-brand-statement__label">{{ section.settings.label }}</p>
+      {%- endif -%}
+      <blockquote class="r2p-brand-statement__quote">
+        {{ section.settings.quote | default: '"We don\'t follow trends. We set the course and let the culture catch up."' }}
+      </blockquote>
+      {%- if section.settings.author != blank -%}
+        <p class="r2p-brand-statement__author">— {{ section.settings.author }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "R2P Brand Statement",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "The Vision"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote",
+      "default": "\"We don't follow trends. We set the course and let the culture catch up.\""
+    },
+    {
+      "type": "text",
+      "id": "author",
+      "label": "Author",
+      "default": "R2P"
+    }
+  ],
+  "presets": [
+    {
+      "name": "R2P Brand Statement"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,265 @@
+<!-- R2P Hero Section -->
+<style>
+  .r2p-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 var(--r2p-gutter);
+    padding-bottom: 80px;
+    overflow: hidden;
+    background: var(--r2p-bg);
+    margin-top: calc(-1 * (var(--r2p-header-height) + var(--r2p-announcement-height)));
+  }
+
+  .r2p-hero__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .r2p-hero__bg-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      rgba(5, 5, 5, 0.3) 0%,
+      rgba(5, 5, 5, 0.1) 40%,
+      rgba(5, 5, 5, 0.7) 70%,
+      rgba(5, 5, 5, 1) 100%
+    );
+    z-index: 2;
+  }
+
+  .r2p-hero__bg img,
+  .r2p-hero__bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .r2p-hero__content {
+    position: relative;
+    z-index: 3;
+    max-width: var(--r2p-page-width);
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .r2p-hero__label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--r2p-accent);
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+
+  .r2p-hero__heading {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--r2p-text);
+    margin-bottom: 24px;
+    max-width: 800px;
+  }
+
+  .r2p-hero__body {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--r2p-muted);
+    max-width: 480px;
+    margin-bottom: 32px;
+  }
+
+  .r2p-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 40px;
+    background: var(--r2p-accent);
+    color: var(--r2p-black);
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background var(--duration-hover) var(--ease-out-expo);
+  }
+
+  .r2p-hero__cta:hover {
+    background: #b8ee00;
+    color: var(--r2p-black);
+  }
+
+  .r2p-hero__cta svg {
+    width: 14px;
+    height: 14px;
+    transition: transform var(--duration-hover) var(--ease-out-expo);
+  }
+
+  .r2p-hero__cta:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Scroll indicator */
+  .r2p-hero__scroll {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--r2p-muted);
+  }
+
+  .r2p-hero__scroll-text {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .r2p-hero__scroll-line {
+    width: 1px;
+    height: 32px;
+    background: var(--r2p-muted);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .r2p-hero__scroll-line::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--r2p-accent);
+    animation: r2p-scroll-line 1.8s var(--ease-out-expo) infinite;
+  }
+
+  @keyframes r2p-scroll-line {
+    0% { top: -100%; }
+    50% { top: 0; }
+    100% { top: 100%; }
+  }
+
+  @media screen and (min-width: 750px) {
+    .r2p-hero {
+      padding-bottom: 120px;
+    }
+
+    .r2p-hero__body {
+      font-size: 1.125rem;
+    }
+  }
+</style>
+
+<section class="r2p-hero" aria-label="Hero">
+  <!-- Background -->
+  <div class="r2p-hero__bg">
+    {%- if section.settings.hero_image != blank -%}
+      {{ section.settings.hero_image | image_url: width: 2000 | image_tag:
+        loading: 'eager',
+        sizes: '100vw',
+        widths: '600, 900, 1200, 1800, 2000',
+        alt: section.settings.heading
+      }}
+    {%- endif -%}
+    <div class="r2p-hero__bg-gradient"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="r2p-hero__content r2p-stagger">
+    <span class="r2p-hero__label">
+      {{ section.settings.label | default: 'Drop 03 — Limited Edition' }}
+    </span>
+    <h2 class="r2p-hero__heading">
+      {{ section.settings.heading | default: "The path ain't straight." }}
+    </h2>
+    <p class="r2p-hero__body">
+      {{ section.settings.body_text | default: 'Built for the ones still on the road. Premium streetwear for the culture.' }}
+    </p>
+    <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="r2p-hero__cta">
+      {{ section.settings.cta_text | default: 'Shop the Drop' }}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="r2p-hero__scroll" aria-hidden="true">
+    <span class="r2p-hero__scroll-text">Scroll</span>
+    <div class="r2p-hero__scroll-line"></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "R2P Hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Accent label",
+      "default": "Drop 03 — Limited Edition"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The path ain't straight."
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "Built for the ones still on the road. Premium streetwear for the culture."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Shop the Drop"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "R2P Hero"
+    }
+  ]
+}
+{% endschema %}
