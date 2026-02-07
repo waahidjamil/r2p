@@ -438,29 +438,21 @@
        MARQUEE TICKER
        ═══════════════════════════════════════════════════════ */
     .ticker {
-      padding: 40px 0;
+      padding: 0;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       overflow: hidden;
     }
     .ticker__track {
       display: flex;
-      white-space: nowrap;
-      animation: marquee 25s linear infinite;
+      align-items: center;
+      animation: marquee 30s linear infinite;
     }
-    .ticker__item {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-style: italic;
-      color: var(--text);
-      padding: 0 40px;
+    .ticker__img {
+      height: 90px;
+      width: auto;
       flex-shrink: 0;
-    }
-    .ticker__dot {
-      color: var(--accent);
-      padding: 0 16px;
-      flex-shrink: 0;
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      display: block;
     }
 
     /* ═══════════════════════════════════════════════════════
@@ -1487,14 +1479,7 @@
     <!-- Ticker -->
     <div class="ticker">
       <div class="ticker__track">
-        <span class="ticker__item">Road 2 P$</span><span class="ticker__dot">●</span>
-        <span class="ticker__item">Stay on the Path</span><span class="ticker__dot">●</span>
-        <span class="ticker__item">Drop 03 Live</span><span class="ticker__dot">●</span>
-        <span class="ticker__item">Premium Streetwear</span><span class="ticker__dot">●</span>
-        <span class="ticker__item">Road 2 P$</span><span class="ticker__dot">●</span>
-        <span class="ticker__item">Stay on the Path</span><span class="ticker__dot">●</span>
-        <span class="ticker__item">Drop 03 Live</span><span class="ticker__dot">●</span>
-        <span class="ticker__item">Premium Streetwear</span><span class="ticker__dot">●</span>
+        <img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img"><img src="r2pla.gif" alt="R2P" class="ticker__img">
       </div>
     </div>
 
