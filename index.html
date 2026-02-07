@@ -965,10 +965,11 @@
       color: var(--muted);
     }
     .about__band {
+      position: relative;
       width: 100vw;
       margin-left: calc(-50vw + 50%);
       height: 300px;
-      background: var(--surface);
+      overflow: hidden;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -979,10 +980,28 @@
     @media (min-width: 750px) {
       .about__band { height: 400px; }
     }
+    .about__band-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .about__band-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 5, 5, 0.6);
+      z-index: 1;
+    }
     .about__band-text {
+      position: relative;
+      z-index: 2;
       font-family: var(--font-impact);
       font-size: clamp(4rem, 12vw, 10rem);
-      color: var(--border);
+      color: var(--text);
       letter-spacing: 0.02em;
     }
     .about__pillars {
@@ -1538,21 +1557,20 @@
           <p class="about__body">R2P was born from late nights, long drives, and the belief that the path to greatness isn't a straight line. We create for the ones who stay moving — the dreamers, the hustlers, the ones who know the grind is part of the glory. Every piece we drop is a chapter in a story that's still being written.</p>
         </div>
         <div class="about__band">
+          <img src="r2pdilatedog.gif" alt="" class="about__band-img" aria-hidden="true">
+          <div class="about__band-overlay"></div>
           <span class="about__band-text">STAY ON THE PATH</span>
         </div>
         <div class="about__pillars reveal">
           <div class="pillar">
-            <div class="pillar__icon">🎵</div>
             <h3 class="pillar__title">Music</h3>
             <p class="pillar__text">Born from the studio. Every collection is inspired by the sounds, rhythms, and energy that drive the culture forward.</p>
           </div>
           <div class="pillar">
-            <div class="pillar__icon">🔥</div>
             <h3 class="pillar__title">Culture</h3>
             <p class="pillar__text">We don't observe from the sidelines. R2P lives in the culture — the streets, the sessions, the late-night conversations that shape what's next.</p>
           </div>
           <div class="pillar">
-            <div class="pillar__icon">⚡</div>
             <h3 class="pillar__title">Limited</h3>
             <p class="pillar__text">Once it's gone, it's gone. Every drop is a moment in time. We keep runs tight because exclusivity breeds intention.</p>
           </div>
