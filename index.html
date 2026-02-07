@@ -439,6 +439,8 @@
        ═══════════════════════════════════════════════════════ */
     .ticker {
       padding: 0;
+      height: 80px;
+      background: #050505;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       overflow: hidden;
@@ -446,13 +448,18 @@
     .ticker__track {
       display: flex;
       align-items: center;
-      animation: marquee 30s linear infinite;
+      height: 80px;
+      animation: marquee-right 40s linear infinite;
     }
     .ticker__img {
-      height: 50px;
+      height: 80px;
       width: auto;
       flex-shrink: 0;
       display: block;
+    }
+    @keyframes marquee-right {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
     }
 
     /* ═══════════════════════════════════════════════════════
@@ -1479,7 +1486,7 @@
     <!-- Ticker -->
     <div class="ticker">
       <div class="ticker__track">
-        <img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img"><img src="r2pmarquee.gif" alt="R2P" class="ticker__img">
+        <img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img"><img src="road2pz.png" alt="R2P" class="ticker__img">
       </div>
     </div>
 
